@@ -39,7 +39,7 @@ function draw() {
   x = Math.min(Math.max(x, 10), width - 10) // borders
   y = Math.min(Math.max(y, 10), height - 10) // borders
 
-  context.fillStyle = 'rgba(45, 49, 66, 0.5)'
+  context.fillStyle = 'rgba(45, 49, 66, 0.1)'
   context.fillRect(0, 0, width, height) // draw background
 
   context.strokeStyle = '#4f5d75'
