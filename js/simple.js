@@ -14,6 +14,9 @@ var fx = 0
 var fy = 0
 var size = 20
 
+var xscale = 1
+var yscale = 1
+
 var deltax = 0,
   deltay = 0 // canvas shift
 
@@ -28,9 +31,12 @@ var commands = {
 
 var speed = 2
 
+var dxs = 0
+var dys = 0
+
 function drawShadow(x1, y1, x2, y2) {
   // draw the shadow of a segment
-  context.fillStyle = '#000'
+  context.fillStyle = '#111'
   context.beginPath()
   context.moveTo(x1, y1)
   context.lineTo(x2, y2)
@@ -64,16 +70,27 @@ function draw() {
   deltax *= 0.8
   deltay *= 0.8
 
+  xscale = Math.min(Math.max(xscale + dxs, 0.4), 1.6)
+  yscale = Math.min(Math.max(yscale + dys, 0.4), 1.6)
+
+  dxs = (1 - xscale) * 0.1
+  dys = (1 - yscale) * 0.1
+
   if (y >= height - 20 - size || y <= 20 + size) {
     deltay = vy
+    dxs += 0.002 * vy * vy
+    dys += -0.002 * vy * vy
     vy *= -0.8
   }
   if (x >= width - 20 - size || x <= 20 + size) {
     deltax = vx
+    dxs += -0.002 * vx * vx
+    dys += 0.002 * vx * vx
     vx *= -0.8
   } else {
     vx *= 0.9
   }
+
   x = Math.min(Math.max(x, 20 + size), width - 20 - size) // borders
   y = Math.min(Math.max(y, 20 + size), height - 20 - size) // borders
 
@@ -103,6 +120,11 @@ function draw() {
     wy = 2 * size + ey
   }
 
+  px -= (xscale - 1) * wx / 2
+  wx *= xscale
+  py -= (yscale - 1) * wy / 2
+  wy *= yscale
+
   // draw shadow
   drawShadow(px - 1, py, px + wx + 1, py)
   drawShadow(px - 1, py, px - 1, py + wy)
@@ -112,7 +134,23 @@ function draw() {
   context.shadowBlur = 50
   context.shadowColor = 'rgba(239, 131, 84, 0.3)'
   context.fillStyle = 'rgb(239, 131, 84)'
-  context.fillRect(px, py, wx, wy)
+  context.beginPath()
+  context.moveTo(px, py)
+  var rx = 5 * (xscale - 1) + Math.sqrt(ex * ex / 80)
+  var ry = 5 * (yscale - 1) + Math.sqrt(ey * ey / 80)
+  context.bezierCurveTo(px, py + rx, px + wx, py + rx, px + wx, py)
+  context.bezierCurveTo(
+    px + wx - ry,
+    py,
+    px + wx - ry,
+    py + wy,
+    px + wx,
+    py + wy
+  )
+  context.bezierCurveTo(px + wx, py + wy - rx, px, py + wy - rx, px, py + wy)
+  context.bezierCurveTo(px + ry, py + wy, px + ry, py, px, py)
+  context.fill()
+  // context.fillRect(px, py, wx, wy)
 
   // context.fillStyle = 'white'
   // context.font = '30px Arial'
