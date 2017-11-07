@@ -8,8 +8,10 @@ var height = (canvas.height = window.innerHeight)
 
 var x = width / 2
 var y = height / 2
-var v = 0
-var f = 0
+var vx = 0
+var vy = 0
+var fx = 0
+var fy = 0
 
 var commands = {
   left: false,
@@ -21,22 +23,28 @@ var speed = 10
 
 function draw() {
   if (commands.left) {
-    x -= speed
+    fx = -speed
   }
   if (commands.right) {
-    x += speed
+    fx = speed
   }
   if (commands.jump) {
     commands.jump = false
-    f = -20
+    fy = -20
   }
-  v += f
-  y += v
+  vx += fx
+  vy += fy
+  x += vx
+  y += vy
   
-  f = 1
+  fy = 1
+  fx = 0
   
   if (y >= height - 10 || y <= 10) {
-    v *= -0.8
+    vy *= -0.8
+  }
+  if (x >= width - 10 || x <= 10) {
+    vx *= 0.8
   }
   x = Math.min(Math.max(x, 10), width - 10) // borders
   y = Math.min(Math.max(y, 10), height - 10) // borders
