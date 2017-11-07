@@ -6,12 +6,13 @@ var height = (canvas.height = window.innerHeight)
 
 var x = width / 2
 var y = height / 2
+var v = 0
+var f = 0
 
 var commands = {
   left: false,
   right: false,
-  up: false,
-  down: false
+  jump: false
 }
 
 var speed = 10
@@ -23,12 +24,15 @@ function draw() {
   if (commands.right) {
     x += speed
   }
-  if (commands.up) {
-    y -= speed
+  if (commands.jump) {
+    commands.jump = false
+    f = -20
   }
-  if (commands.down) {
-    y += speed
-  }
+  v += f
+  y += v
+  
+  f = 10
+  
   x = Math.min(Math.max(x, 10), width - 10) // borders
   y = Math.min(Math.max(y, 10), height - 10) // borders
 
@@ -48,17 +52,12 @@ function draw() {
 
 window.addEventListener('keydown', function(event) {
   switch (event.key) {
-    case 'w':
-    case 'ArrowUp':
-      commands.up = true
-      break
     case 'a':
     case 'ArrowLeft':
       commands.left = true
       break
-    case 's':
-    case 'ArrowDown':
-      commands.down = true
+    case ' ':
+      commands.jump = true
       break
     case 'd':
     case 'ArrowRight':
@@ -68,17 +67,9 @@ window.addEventListener('keydown', function(event) {
 })
 window.addEventListener('keyup', function(event) {
   switch (event.key) {
-    case 'w':
-    case 'ArrowUp':
-      commands.up = false
-      break
     case 'a':
     case 'ArrowLeft':
       commands.left = false
-      break
-    case 's':
-    case 'ArrowDown':
-      commands.down = false
       break
     case 'd':
     case 'ArrowRight':
