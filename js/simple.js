@@ -89,9 +89,9 @@ function draw() {
   }
   context.fillRect(px, py, wx, wy) // draw player
 
-  context.fillStyle = 'white'
-  context.font = '30px Arial'
-  context.fillText('💩', x - 20, y + 10) // draw face
+  // context.fillStyle = 'white'
+  // context.font = '30px Arial'
+  // context.fillText('💩', x - 20, y + 10) // draw face
 
   requestAnimationFrame(draw) // set next frame
 }
