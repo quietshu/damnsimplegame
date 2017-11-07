@@ -19,7 +19,7 @@ var commands = {
   jump: false
 }
 
-var speed = 10
+var speed = 1
 
 function draw() {
   if (commands.left) {
@@ -44,7 +44,9 @@ function draw() {
     vy *= -0.8
   }
   if (x >= width - 10 || x <= 10) {
-    vx *= 0.8
+    vx *= -0.8
+  } else {
+    vx *= 0.5
   }
   x = Math.min(Math.max(x, 10), width - 10) // borders
   y = Math.min(Math.max(y, 10), height - 10) // borders
