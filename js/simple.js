@@ -83,8 +83,5 @@ window.addEventListener('keyup', function(event) {
 canvas.addEventListener('touchstart', function () {
   commands.jump = true
 })
-canvas.addEventListener('mousedown', function () {
-  commands.jump = true
-})
 
 draw()
