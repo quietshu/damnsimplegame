@@ -1,6 +1,8 @@
 var canvas = document.getElementsByTagName('canvas')[0]
 var context = canvas.getContext('2d')
 
+context.globalCompositeOperation = 'multiply'
+
 var width = (canvas.width = window.innerWidth)
 var height = (canvas.height = window.innerHeight)
 
@@ -39,7 +41,7 @@ function draw() {
   x = Math.min(Math.max(x, 10), width - 10) // borders
   y = Math.min(Math.max(y, 10), height - 10) // borders
 
-  context.fillStyle = 'rgba(45, 49, 66, 0.1)'
+  context.fillStyle = 'rgba(45, 49, 66, 0.2)'
   context.fillRect(0, 0, width, height) // draw background
 
   context.strokeStyle = '#4f5d75'
