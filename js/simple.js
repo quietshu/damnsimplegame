@@ -14,6 +14,9 @@ var fx = 0
 var fy = 0
 var size = 20
 
+var deltax = 0,
+  deltay = 0 // canvas shift
+
 var ex = 0,
   ey = 0 // expand
 
@@ -44,10 +47,15 @@ function draw() {
   fy = 1
   fx = 0
 
+  deltax *= 0.8
+  deltay *= 0.8
+
   if (y >= height - 20 - size || y <= 20 + size) {
+    deltay = vy
     vy *= -0.8
   }
   if (x >= width - 20 - size || x <= 20 + size) {
+    deltax = vx
     vx *= -0.8
   } else {
     vx *= 0.9
@@ -55,9 +63,11 @@ function draw() {
   x = Math.min(Math.max(x, 20 + size), width - 20 - size) // borders
   y = Math.min(Math.max(y, 20 + size), height - 20 - size) // borders
 
-  // context.shadowBlur = 0
+  context.shadowBlur = 0
   context.fillStyle = 'rgba(45, 49, 66, 1)'
   context.fillRect(0, 0, width, height) // draw background
+
+  context.translate(deltax, deltay) // shake
 
   context.strokeStyle = '#4f5d75'
   context.lineWidth = 20
@@ -65,8 +75,8 @@ function draw() {
 
   let v = vx * vx + vy * vy
 
-  // context.shadowBlur = 5
-  // context.shadowColor = 'black'
+  context.shadowBlur = 50
+  context.shadowColor = 'rgba(239, 131, 84, 0.3)'
   context.fillStyle = 'rgb(239, 131, 84)'
 
   let px, wx, py, wy // position and width
@@ -92,6 +102,8 @@ function draw() {
   // context.fillStyle = 'white'
   // context.font = '30px Arial'
   // context.fillText('💩', x - 20, y + 10) // draw face
+
+  context.translate(-deltax, -deltay)
 
   requestAnimationFrame(draw) // set next frame
 }
