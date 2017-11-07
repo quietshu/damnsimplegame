@@ -19,7 +19,7 @@ var commands = {
   jump: false
 }
 
-var speed = 1
+var speed = 5
 
 function draw() {
   if (commands.left) {
