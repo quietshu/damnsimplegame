@@ -46,7 +46,7 @@ function draw() {
   if (x >= width - 10 || x <= 10) {
     vx *= -0.8
   } else {
-    vx *= 0.5
+    vx *= 0.9
   }
   x = Math.min(Math.max(x, 10), width - 10) // borders
   y = Math.min(Math.max(y, 10), height - 10) // borders
