@@ -31,7 +31,7 @@ function draw() {
   v += f
   y += v
   
-  f = 10
+  f = 1
   
   if (y >= height - 10) {
     v = 0
