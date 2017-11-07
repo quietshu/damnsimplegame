@@ -33,6 +33,9 @@ function draw() {
   
   f = 10
   
+  if (y >= height - 10) {
+    v = 0
+  }
   x = Math.min(Math.max(x, 10), width - 10) // borders
   y = Math.min(Math.max(y, 10), height - 10) // borders
 
