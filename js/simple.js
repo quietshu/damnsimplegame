@@ -36,12 +36,12 @@ function draw() {
   f = 1
   
   if (y >= height - 10 || y <= 10) {
-    v = 0
+    v *= -0.8
   }
   x = Math.min(Math.max(x, 10), width - 10) // borders
   y = Math.min(Math.max(y, 10), height - 10) // borders
 
-  context.fillStyle = 'rgba(45, 49, 66, 0.2)'
+  context.fillStyle = 'rgba(45, 49, 66, 0.7)'
   context.fillRect(0, 0, width, height) // draw background
 
   context.strokeStyle = '#4f5d75'
