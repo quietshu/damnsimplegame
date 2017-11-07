@@ -28,6 +28,20 @@ var commands = {
 
 var speed = 2
 
+function drawShadow(x1, y1, x2, y2) {
+  // draw the shadow of a segment
+  context.fillStyle = '#000'
+  context.beginPath()
+  context.moveTo(x1, y1)
+  context.lineTo(x2, y2)
+  let r = (height - y2 + 10) / (y2 + 10)
+  context.lineTo(x2 + (x2 - width / 2) * r, height + 10)
+  r = (height - y1 + 10) / (y1 + 10)
+  context.lineTo(x1 + (x1 - width / 2) * r, height + 10)
+  context.closePath()
+  context.fill()
+}
+
 function draw() {
   if (commands.left) {
     fx = -speed
@@ -63,21 +77,12 @@ function draw() {
   x = Math.min(Math.max(x, 20 + size), width - 20 - size) // borders
   y = Math.min(Math.max(y, 20 + size), height - 20 - size) // borders
 
-  context.shadowBlur = 0
   context.fillStyle = 'rgba(45, 49, 66, 1)'
   context.fillRect(0, 0, width, height) // draw background
 
   context.translate(deltax, deltay) // shake
 
-  context.strokeStyle = '#4f5d75'
-  context.lineWidth = 20
-  context.strokeRect(10, 10, width - 20, height - 20) // draw border
-
   let v = vx * vx + vy * vy
-
-  context.shadowBlur = 50
-  context.shadowColor = 'rgba(239, 131, 84, 0.3)'
-  context.fillStyle = 'rgb(239, 131, 84)'
 
   let px, wx, py, wy // position and width
   let expand = size / 10
@@ -97,11 +102,26 @@ function draw() {
     py = y - size - ey
     wy = 2 * size + ey
   }
-  context.fillRect(px, py, wx, wy) // draw player
+
+  // draw shadow
+  drawShadow(px - 1, py, px + wx + 1, py)
+  drawShadow(px - 1, py, px - 1, py + wy)
+  drawShadow(px + wx + 1, py, px + wx + 1, py + wy)
+
+  // draw player
+  context.shadowBlur = 50
+  context.shadowColor = 'rgba(239, 131, 84, 0.3)'
+  context.fillStyle = 'rgb(239, 131, 84)'
+  context.fillRect(px, py, wx, wy)
 
   // context.fillStyle = 'white'
   // context.font = '30px Arial'
   // context.fillText('💩', x - 20, y + 10) // draw face
+
+  context.shadowBlur = 0
+  context.strokeStyle = '#4f5d75'
+  context.lineWidth = 20
+  context.strokeRect(10, 10, width - 20, height - 20) // draw border
 
   context.translate(-deltax, -deltay)
 
