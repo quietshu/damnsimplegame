@@ -27,7 +27,7 @@ var commands = {
   left: false,
   right: false,
   jump: false,
-  jumpLock: false,
+  jumpLock: false
 }
 
 var speed = 2
@@ -64,7 +64,7 @@ var shadowBlur = 0
 
 var bricks = [
   [width / 6, width / 3, height / 3, 0.8],
-  [width / 3, width * 2 / 3, height * 2 / 3, -0.5],
+  [width / 3, width * 2 / 3, height * 2 / 3, -0.5]
 ]
 setInterval(() => {
   bricks.forEach(brick => {
@@ -306,6 +306,15 @@ window.addEventListener('keyup', function(event) {
     case 'ArrowRight':
       commands.right = false
       break
+  }
+})
+window.addEventListener('deviceorientation', function(event) {
+  commands.left = false
+  commands.right = false
+  if (event.gamma < -10) {
+    commands.left = true
+  } else if (event.gamma > 10) {
+    commands.right = true
   }
 })
 canvas.addEventListener('touchstart', function() {
