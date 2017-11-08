@@ -309,6 +309,8 @@ window.addEventListener('keyup', function(event) {
   }
 })
 window.addEventListener('deviceorientation', function(event) {
+  // for more details,
+  // https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Orientation_and_motion_data_explained
   commands.left = false
   commands.right = false
   if (event.gamma < -10) {
