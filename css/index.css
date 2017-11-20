@@ -6,4 +6,8 @@ canvas {
   width: 100%;
   height: 100%;
   background-color: #2d3142;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
