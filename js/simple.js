@@ -4,8 +4,8 @@ var context = canvas.getContext('2d')
 context.globalCompositeOperation = 'screen'
 
 // canvas
-var width = (canvas.width = window.innerWidth * 0.8) // canvas width
-var height = (canvas.height = window.innerHeight * 0.8) // canvas height
+var width = (canvas.width = window.innerWidth * 0.5) // canvas width
+var height = (canvas.height = window.innerHeight * 0.5) // canvas height
 var deltax = 0 // canvas shake-x
 var deltay = 0 // canvas shake-y
 
