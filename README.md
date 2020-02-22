@@ -1,3 +1,5 @@
+[flappy-cube.now.sh](https://flappy-cube.now.sh)
+
 A simple demo for the following effects:
 
 - [x] velocity & acceleration
